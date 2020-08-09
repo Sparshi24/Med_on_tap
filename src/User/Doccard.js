@@ -21,6 +21,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import SearchBar from 'material-ui-search-bar'
 import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
 
   
 function Copyright() {
@@ -45,6 +46,8 @@ const useStyles = ((theme) => ({
   root: {
     //marginTop: 0,
     flexGrow: 1,
+    // maxWidth: 400,
+    minWidth: 600,
     
   },
   media: {
@@ -60,9 +63,11 @@ const useStyles = ((theme) => ({
     // padding: 5,
   },
   head: {
-  marginTop: -105,
-    color: theme.palette.common.white,
-  },
+    
+    // marginTop: 0,
+    marginLeft:480,
+      color: theme.palette.common.white,
+    },
   root:{
     flexGrow: 1,
         padding: theme.spacing(2),
@@ -76,9 +81,39 @@ class Display extends Component
     {
         super();
         this.state={
+          t1:'',
           kalu:[]
         };
     }
+
+    fun(e){
+      this.setState({
+     [e.target.name]:e.target.value     
+      })
+    }
+    sendData(ev){
+      const t1=this.state.t1
+     
+      
+    const data={
+        t1
+           }
+
+    Axios.get('http://localhost:8080/examples/docsearch.jsp',{params:data}).then(response=>{
+          console.log(response);
+          this.setState({
+          message:response.data.response,
+          kalu: response.data.responses ,
+          })
+          }).catch(err=>{
+          console.log("Failed");
+          }
+          
+          
+          )
+      
+        }
+
     componentDidMount(){
         Axios.get('http://localhost:8080/examples/doccard.jsp').then(response=>{
           this.setState({kalu: response.data.responses})  
@@ -92,30 +127,34 @@ class Display extends Component
 
   return (
     <div className={classes.root}>
-      {/* <AppBar position="static" className={classes.head}> */}
-        {/* <Toolbar> */}
-            
-      {/* <Button color="inherit"> 
-                           <Link>
-                           TABLE VIEW    
-                           </Link>
-                           </Button>  
-           */}
-
-{/* <SearchBar
-      onChange={() => console.log('onChange')}
-      onRequestSearch={() => console.log('onRequestSearch')}
-      style={{
-        margin: '0 auto',
-        maxWidth: 800
-      }}
-    /> */}
-           <div  >
-<Button   a href="/User/User4"  color="inherit" justify="right" >TABLE VIEW  </Button>
-</div><br></br><br></br>
-        {/* </Toolbar> */}
-      {/* </AppBar> */}
       <Grid item xs={12}>
+
+      <div className={classes.head} >
+      
+      <TextField variant="outlined" 
+      margin="normal" 
+      width="400" 
+      name="search"  
+      autoComplete="Name"
+       label="Search Here"
+        type="name"  
+        name="t1" 
+        autoComplete="Name"  
+        value={this.state.t1} 
+        autoFocus 
+        onChange={this.fun.bind(this)}/> 
+        </div>
+        <br></br>
+        {/* <br></br> */}
+        <center>
+      <Button onClick={this.sendData.bind(this)} size="small" variant="contained" color="primary" className={classes.submit}>Search </Button>
+      </center>
+      <br></br>
+{/* {this.state.message} */}
+                     
+      
+      <br></br>
+
       <Grid container justify="center" >
                 {    this.state.kalu.map((ag,key) => 
                     <div key>
@@ -129,70 +168,91 @@ class Display extends Component
       <CardActionArea>
         
         <CardContent>
-          <Divider/>
-               <Typography gutterBottom variant="h10" component="h2">
-                    Doctor Name
-                    <Typography variant="body1" >
+          {/* <Divider/> */}
+               {/* <Typography gutterBottom variant="h10" component="h2"> */}
+                    {/* Doctor Name */}
+                    <Typography gutterBottom variant="h2" component="h1" >
                         {ag.doc_name}
                     </Typography>
-                </Typography>
-          <Divider/>
+                {/* </Typography> */}
 
-                <Typography gutterBottom variant="h10" component="h2">
-                     Specialization
-                     <Typography variant="body1" >
-                         {ag.specialization}
-                     </Typography>
-                </Typography>
-          <Divider/>
-
-                <Typography gutterBottom variant="h10" component="h2">
-                     Degree 
-                    <Typography variant="body1" >
-                        {ag.degree}
-                    </Typography>
-                </Typography>
-          <Divider/>
-
-                <Typography gutterBottom variant="h10" component="h2">
-                     Fee 
-                     <Typography variant="body1" >
-                         {ag.fee}
-                     </Typography>
-                </Typography>
-          <Divider/>
-
-                <Typography gutterBottom variant="h10" component="h2">
-                     Treatment
-                     <Typography variant="body1" >
-                         {ag.treatment}
-                     </Typography>
-                </Typography>
-          <Divider/>
-
-                <Typography gutterBottom variant="h10" component="h2">
-                     Timming
-                     <Typography variant="body1" >
-                         {ag.timming}
-                     </Typography>
-                </Typography>
-          <Divider/>
-
-                <Typography gutterBottom variant="h10" component="h2">
-                     Contact 
-                     <Typography variant="body1" >
-                         {ag.contact}
-                     </Typography>
-                </Typography>
-          <Divider/>
-
-                <Typography gutterBottom variant="h10" component="h2">
-                     Address
-                    <Typography variant="body1" >
+                {/* <Typography gutterBottom variant="body1" component="h6"> */}
+                     {/* Address */}
+                     {/* </Typography> */}
+                    <Typography variant="body1" component="h6" >
                         {ag.address}
                     </Typography>
-                </Typography>
+                {/* </Typography> */}
+
+                {/* <Typography gutterBottom variant="body1" component="h6"> */}
+                     {/* Contact  */}
+                     {/* </Typography> */}
+                     <Typography variant="body1" component="h6" >
+                         {ag.contact}
+                     </Typography>
+                {/* </Typography> */}
+
           <Divider/>
+
+
+
+                <Typography gutterBottom variant="body1" component="h6">
+                     Treatment
+                     </Typography>
+                     {/* <Typography variant="body1" > */}
+                         {ag.treatment}
+                     {/* </Typography> */}
+                {/* </Typography> */}
+          <Divider/>
+
+                <Typography gutterBottom variant="body1" component="h6">
+                     Timming
+                     </Typography>
+                     {/* <Typography variant="body1" > */}
+                         {ag.timming}
+                     {/* </Typography> */}
+                {/* </Typography> */}
+          <Divider/>
+
+          <Typography gutterBottom variant="body1" component="h6">
+                     Fee 
+                     </Typography>
+                     {/* <Typography variant="body1" > */}
+                         {ag.fee}
+                     {/* </Typography> */}
+                {/* </Typography> */}
+          <Divider/>
+
+          <Typography gutterBottom variant="body1" component="h6">
+                     Specialization
+                     </Typography>
+                     {/* <Typography variant="body1" > */}
+                         {ag.specialization}
+                     {/* </Typography> */}
+                {/* </Typography> */}
+          <Divider/>
+
+                <Typography gutterBottom variant="body1" component="h6">
+                     Degree 
+                     </Typography>
+                    {/* <Typography variant="body1" > */}
+                        {ag.degree}
+                    {/* </Typography> */}
+                {/* </Typography> */}
+          <Divider/>
+
+
+
+          {/* <Divider/> */}
+
+                {/* <Typography gutterBottom variant="body1" component="h6">
+                     Address
+                     </Typography>
+                    {/* <Typography variant="body1" > */}
+                        {/* {ag.address} */}
+                    {/* </Typography> */}
+                {/* </Typography> */}
+          {/* <Divider/> */} 
           
         
         </CardContent>
@@ -212,6 +272,11 @@ class Display extends Component
          </Grid>
 </Grid>
 {/* <Copyright /> */}
+
+<div  >
+<Button   a href="/User/User4"  color="inherit" justify="right" >TABLE VIEW  </Button>
+</div>
+
     </div>
   );
 }

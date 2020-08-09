@@ -21,6 +21,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
+import Search from '@material-ui/icons/Search';
 
   
 function Copyright() {
@@ -28,7 +30,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Tradeit
+        Med_on_tap
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -39,6 +41,7 @@ const useStyles = ((theme) => ({
   root: {
     //marginTop: 0,
     flexGrow: 1,
+    maxWidth: 600,
     
   },
   media: {
@@ -54,9 +57,11 @@ const useStyles = ((theme) => ({
     // padding: 5,
   },
   head: {
-  marginTop: -105,
-    color: theme.palette.common.white,
-  },
+    
+    // marginTop: 0,
+    marginLeft:480,
+      color: theme.palette.common.white,
+    },
   root:{
     flexGrow: 1,
         padding: theme.spacing(2),
@@ -73,6 +78,35 @@ class Display extends Component
           kalu:[]
         };
     }
+
+    fun(e){
+      this.setState({
+     [e.target.name]:e.target.value     
+      })
+    }
+    sendData(ev){
+      const t1=this.state.t1
+     
+      
+    const data={
+        t1
+           }
+
+    Axios.get('http://localhost:8080/examples/covidhossearch.jsp',{params:data}).then(response=>{
+          console.log(response);
+          this.setState({
+          message:response.data.response,
+          kalu: response.data.responses ,
+          })
+          }).catch(err=>{
+          console.log("Failed");
+          }
+          
+          
+          )
+      
+        }
+
     componentDidMount(){
         Axios.get('http://localhost:8080/examples/covidhoscard.jsp').then(response=>{
           this.setState({kalu: response.data.responses})  
@@ -87,12 +121,45 @@ class Display extends Component
 
   return (
     <div>
-    <div  >
-<Button   a href="/User/User8"  color="inherit" justify="right" >TABLE VIEW  </Button>
-</div><br></br><br></br>
+   {/* <br></br><br></br> */}
     <div className={classes.root}>
      
       <Grid item xs={12}>
+
+      <div className={classes.head} >
+      
+      <TextField variant="outlined" 
+      margin="normal" 
+      width="400" 
+      name="search"  
+      autoComplete="Name"
+       label="Search Here"
+        type="name"  
+        name="t1" 
+        autoComplete="Name"  
+        value={this.state.t1} 
+        autoFocus 
+        onChange={this.fun.bind(this)}/> 
+        </div>
+        <br></br>
+        {/* <br></br> */}
+        <center>
+      <Button 
+       onClick={this.sendData.bind(this)}
+        size="small" 
+        variant="contained" 
+        color="primary" 
+        className={classes.submit}
+        startIcon={<Search />}>
+          Search 
+          </Button>
+      </center>
+      <br></br>
+{/* {this.state.message} */}
+                     
+      
+      <br></br>
+
       <Grid container justify="center" >
                 {    this.state.kalu.map((ag,key) => 
                     <div key>
@@ -101,28 +168,70 @@ class Display extends Component
       <div className={classes.paper}><Card className={classes.root}>
       <CardActionArea>
         
-        <CardContent><Divider/>
-        <Typography gutterBottom variant="h10" component="h2">
-        Hospital Name<Typography variant="body1" >{ ag.hospitalname}</Typography>
-          </Typography><Divider/>
-          <Typography gutterBottom variant="h10" component="h2">
-          Total Beds<Typography variant="body1" >{ag.totalbeds}</Typography>
-          </Typography><Divider/>
-          <Typography gutterBottom variant="h10" component="h2">
-          Occupied Beds <Typography variant="body1" >{ag.occupiedbeds}</Typography>
-          </Typography><Divider/>
-          <Typography gutterBottom variant="h10" component="h2">
-          Total Ventilators <Typography variant="body1" >{ag.totalventilators}</Typography>
-          </Typography><Divider/>
-          <Typography gutterBottom variant="h10" component="h2">
-          Occupied Ventilators<Typography variant="body1" >{ag.occupiedventilators}</Typography>
-          </Typography><Divider/>
-          <Typography gutterBottom variant="h10" component="h2">
-          Plasmatherapy<Typography variant="body1" >{ag.plasmatherapy}</Typography>
-          </Typography><Divider/>
-          <Typography gutterBottom variant="h10" component="h2">
-          Last Updated <Typography variant="body1" >{ag.lastupdated}</Typography>
-          </Typography><Divider/>
+        <CardContent>
+          {/* <Divider/> */}
+        {/* <Typography gutterBottom variant="h10" component="h2"> */}
+        {/* Hospital Name */}
+        <Typography gutterBottom variant="h2" component="h1" >
+          { ag.hospitalname}
+          </Typography>
+          {/* </Typography> */}
+          <Divider/>
+
+          <Typography gutterBottom variant="body1" component="h6">
+          Total Beds
+          </Typography>
+          {/* <Typography variant="body1" > */}
+            {ag.totalbeds}
+            {/* </Typography> */}
+          {/* </Typography> */}
+          <Divider/>
+
+          <Typography gutterBottom variant="body1" component="h6">
+          Occupied Beds
+          </Typography>
+           {/* <Typography variant="body1" > */}
+             {ag.occupiedbeds}
+             {/* </Typography>/ */}
+          {/* </Typography> */}
+          <Divider/>
+
+          <Typography gutterBottom variant="body1" component="h6">
+          Total Ventilators
+          </Typography>
+           {/* <Typography variant="body1" > */}
+             {ag.totalventilators}
+             {/* </Typography> */}
+          {/* </Typography> */}
+          <Divider/>
+
+          <Typography gutterBottom variant="body1" component="h6">
+          Occupied Ventilators
+          </Typography>
+          {/* <Typography variant="body1" > */}
+            {ag.occupiedventilators}
+            {/* </Typography> */}
+          {/* </Typography> */}
+          <Divider/>
+
+          <Typography gutterBottom variant="body1" component="h6">
+          Plasmatherapy
+          </Typography>
+          {/* <Typography variant="body1" > */}
+            {ag.plasmatherapy}
+            {/* </Typography> */}
+          {/* </Typography> */}
+          <Divider/>
+ 
+          <Typography gutterBottom variant="body1" component="h6">
+          Last Updated 
+          </Typography>
+          {/* <Typography variant="body1" > */}
+            {ag.lastupdated}
+            {/* </Typography> */}
+          {/* </Typography> */}
+          <Divider/>
+
           {/* <Typography gutterBottom variant="h10" component="h2">
           Address :{ag.ad}
           </Typography> */}
@@ -144,6 +253,11 @@ class Display extends Component
                 }
          </Grid>
 </Grid>
+
+<div  >
+<Button   a href="/User/User8"  color="inherit" justify="right" >TABLE VIEW  </Button>
+</div>
+
     </div>
     </div>
   );

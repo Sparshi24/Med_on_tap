@@ -213,6 +213,7 @@ const useStyles = ((theme) => ({
         address:"",
         lastupdated:"",
         message:"",
+        kalu:[],
         st:false
     }
 }
@@ -259,11 +260,58 @@ sendData(ev){
         const {classes} = this.props
         return (
            <div>
+             <div>
+             {   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('hos',JSON.stringify((ag.hos),null,"  ")),
+            
+            )    
+}
+ {   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('private',JSON.stringify((ag.private),null,"  ")),
+            
+            )    
+}
+ {   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('general',JSON.stringify((ag.general),null,"  ")),
+            
+            )    
+}
+ {   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('AC',JSON.stringify((ag.AC),null,"  ")),
+            
+            )    
+}
+ {   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('NonAC',JSON.stringify((ag.NonAC),null,"  ")),
+            
+            )    
+}
+ {   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('treatment',JSON.stringify((ag.treatment),null,"  ")),
+            
+            )    
+}
+ {   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('lcontact',JSON.stringify((ag.contact),null,"  ")),
+            
+            )    
+}
+{   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('address',JSON.stringify((ag.address),null,"  ")),
+            
+            )    
+}
+{   this.state.kalu.map((ag,key) => 
+            localStorage.setItem('lastupdated',JSON.stringify((ag.lastupdated),null,"  ")),
+            
+            )    
+}
+             </div>
                 {this.state.st?(<div> Welcome</div>):(
   <Container component="main" maxWidth="xs">
   <CssBaseline />
   <div className={classes.paper}>
-  <center><img src="mot.png"  width="100" height="100"/></center>
+  {/* <center><img src="mot.png"  width="100" height="100"/></center> */}
     <Typography component="h1" variant="h5">
      ENTER DETAILS
     </Typography>

@@ -120,7 +120,8 @@ sendData(ev){
 
 <div className={classes.form} noValidate>
 
-<TextField variant="outlined" margin="normal" required fullWidth id="doc_name" label="Doctor Name" name="doc_name" value={this.state.doc_name} autoComplete="doc_name" autoFocus onChange={this.fun.bind(this)}/> 
+<TextField 
+variant="outlined" margin="normal" required fullWidth id="doc_name" label="Doctor Name" name="doc_name" value={this.state.doc_name} autoComplete="doc_name" autoFocus onChange={this.fun.bind(this)}/> 
 
 <TextField variant="outlined" margin="normal" required fullWidth id="specialization" label="Specialization" name="specialization" value={this.state.specialization} autoComplete="Specialization" autoFocus onChange={this.fun.bind(this)}/> 
                   

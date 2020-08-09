@@ -451,7 +451,7 @@ sendData(ev){
   <Container component="main" maxWidth="xs">
   <CssBaseline />
   <div className={classes.paper}>
-  <center><img src="logo.png"  width="100" height="100"/></center>
+  {/* <center><img src="logo.png"  width="100" height="100"/></center> */}
     <Typography component="h1" variant="h5">
      Hospital for Covid19
     </Typography>
