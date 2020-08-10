@@ -24,7 +24,7 @@ import{BrowserRouter as Router,
   import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
   import HomeIcon from "@material-ui/icons/Home";
   import People from "@material-ui/icons/People";
-// import People from '@material-ui/icons/People';
+
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import ListIcon from '@material-ui/icons/List';
 import HelpOutlinedIcon from '@material-ui/icons/HelpOutlined';
